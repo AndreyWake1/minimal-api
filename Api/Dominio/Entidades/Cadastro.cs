@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MinimalApi.Dominio.Enuns;
 
 namespace MinimalApi.Dominio.Entidades;
 
-public class Administrador
+public class Cadastro
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -17,7 +18,5 @@ public class Administrador
     [StringLength(50)]
     public string Senha { get;set; } = default!;
 
-    [Required]
-    [StringLength(30)]
-    public string? Perfil { get;set; }
+    public string? Perfil { get; set; } 
 }

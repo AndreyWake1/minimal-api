@@ -74,8 +74,8 @@ public class Startup
 
         services.AddDbContext<DbContexto>(options => {
             options.UseMySql(
-                Configuration.GetConnectionString("MySql"),
-                ServerVersion.AutoDetect(Configuration.GetConnectionString("MySql"))
+                Configuration.GetConnectionString("sql"),
+                ServerVersion.AutoDetect(Configuration.GetConnectionString("sql"))
             );
         });
 
@@ -196,7 +196,7 @@ public class Startup
                 var administrador = new Administrador{
                     Email = administradorDTO.Email,
                     Senha = administradorDTO.Senha,
-                    Perfil = administradorDTO.Perfil.ToString() ?? Perfil.Editor.ToString()
+                    Perfil = administradorDTO.Perfil.ToString() ?? Perfil.Adm.ToString()
                 };
 
                 administradorServico.Incluir(administrador);
@@ -229,6 +229,9 @@ public class Startup
                 if(veiculoDTO.Ano < 1950)
                     validacao.Mensagens.Add("Veículo muito antigo, aceito somete anos superiores a 1950");
 
+                if (string.IsNullOrEmpty(veiculoDTO.Placa))
+                    validacao.Mensagens.Add("A Placa nao pode ficar em branco");
+
                 return validacao;
             }
 
@@ -237,10 +240,12 @@ public class Startup
                 if(validacao.Mensagens.Count > 0)
                     return Results.BadRequest(validacao);
                 
-                var veiculo = new Veiculo{
+                var veiculo = new Veiculo
+                {
                     Nome = veiculoDTO.Nome,
                     Marca = veiculoDTO.Marca,
-                    Ano = veiculoDTO.Ano
+                    Ano = veiculoDTO.Ano,
+                    Placa = veiculoDTO.Placa
                 };
                 veiculoServico.Incluir(veiculo);
 
@@ -276,6 +281,7 @@ public class Startup
                 veiculo.Nome = veiculoDTO.Nome;
                 veiculo.Marca = veiculoDTO.Marca;
                 veiculo.Ano = veiculoDTO.Ano;
+                veiculo.Placa = veiculoDTO.Placa;
 
                 veiculoServico.Atualizar(veiculo);
 

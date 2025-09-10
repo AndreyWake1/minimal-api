@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MinimalApi.Infraestrutura.Db;
 
@@ -10,13 +11,15 @@ using MinimalApi.Infraestrutura.Db;
 namespace mininal_api.Migrations
 {
     [DbContext(typeof(DbContexto))]
-    partial class DbContextoModelSnapshot : ModelSnapshot
+    [Migration("20250907182245_AdministradorMigration")]
+    partial class AdministradorMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.0")
+                .HasAnnotation("ProductVersion", "7.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -56,34 +59,6 @@ namespace mininal_api.Migrations
                             Perfil = "Adm",
                             Senha = "123"
                         });
-                });
-
-            modelBuilder.Entity("MinimalApi.Dominio.Entidades.Cadastro", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Perfil")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("Senha")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cadastro");
                 });
 
             modelBuilder.Entity("MinimalApi.Dominio.Entidades.Veiculo", b =>

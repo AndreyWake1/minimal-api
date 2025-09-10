@@ -1,8 +1,10 @@
 
 namespace MinimalApi.DTOs;
-public record VeiculoDTO
-{
-    public string Nome { get;set; } = default!;
-    public string Marca { get;set; } = default!;
-    public int Ano { get;set; } = default!;
-}
+
+public class VeiculoDTO
+ {
+    public string Nome { get; set; } = default!;
+    public string Marca { get; set; } = default!;
+    public int Ano { get; set; } = default!;
+    public string Placa { get; set; } = default!;
+ }
